@@ -11,6 +11,18 @@ export class User {
   @Column()
   lastName: string;
 
+  @Column()
+  userName: string;
+
+  @Column()
+  password: string;
+
+  @Column({default:"now()" })
+  createdOn: string;
+
+  @Column({default:"now()" })
+  updatedOn: string;
+
   @Column({ default: true })
   isActive: boolean;
 }
