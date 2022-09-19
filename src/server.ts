@@ -1,7 +1,6 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { ExpressAdapter } from '@nestjs/platform-express';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as express from 'express';
 import * as serverless from 'serverless-http';
 import { AppModule } from './module';
@@ -21,13 +20,6 @@ const bootstrap = async (module: any) => {
   nestApp.use(express.urlencoded({ limit: '50mb', extended: true }));
 
   await nestApp.init();
-
-  const config = new DocumentBuilder()
-  .setTitle('Biz24 Apis')
-  .setVersion('1.0')
-  .build();
-const document = SwaggerModule.createDocument(nestApp, config);
-SwaggerModule.setup('api', nestApp, document);
   return app;
 };
 
