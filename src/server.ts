@@ -9,7 +9,7 @@ const bootstrap = async (module: any) => {
   const app = express();
   const nestApp = await NestFactory.create(module, new ExpressAdapter(app));
 
-  nestApp.setGlobalPrefix('/api');
+  nestApp.setGlobalPrefix('/.my/functions/server');
   nestApp.enableCors();
   nestApp.useGlobalPipes(
     new ValidationPipe({
