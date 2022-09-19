@@ -7,5 +7,5 @@
 
 [[redirects]]
   from = "/"
-  to = "/.netlify/functions/server/"
+  to = "/api/"
   status = 200
