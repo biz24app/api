@@ -12,11 +12,7 @@ export class UsersService {
   ) {}
 
   create(createUserDto: CreateUserDto): User {
-
     console.log("CreateUserDto=========>  ",createUserDto);
-    
-    
-
     const user = this.usersRepository.create(createUserDto);
         this.usersRepository.save(createUserDto);
         return user;
@@ -32,8 +28,15 @@ export class UsersService {
         id: id,
       },
     });
+  }
 
-    
+  findUser(username: string,password: string): Promise<User> {
+    return this.usersRepository.findOne({
+      where: {
+        userName: username,
+        password:password
+      },
+    });
   }
 
   update(id: number, data: Partial<UpdateUserDto>) {
