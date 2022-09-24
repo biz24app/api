@@ -7,7 +7,7 @@ export class AuthService {
   constructor(
     private jwtService: JwtService,
     private usersService: UsersService,
-  ) {}
+  ) { }
 
   async validateUser(username: string, pass: string): Promise<any> {
     // const user = await this.usersService.findOne(username);
@@ -18,15 +18,23 @@ export class AuthService {
     return null;
   }
 
-  async login(username: string, pass: string) {
-    const user = await this.usersService.findUser(username,pass);
-    if (!user) {
-      throw new UnauthorizedException()
+  async verify(token: string) {
+    try {
+      return this.jwtService.verify(token);
+    } catch (e) {
+      throw new UnauthorizedException(e);
     }
-      const payload = { username: user.userName, sub: user.id };
-      return {
-        access_token: this.jwtService.sign(payload),
-        url:"url"
-      };
+  }
+
+  async login(username: string, pass: string) {
+    const user = await this.usersService.findUser(username, pass);
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+    const payload = { username: user.userName, sub: user.id };
+    return {
+      access_token: this.jwtService.sign(payload),
+      url: "url"
+    };
   }
 }
