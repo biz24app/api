@@ -27,7 +27,7 @@ const bootstrap = async (module: any) => {
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(nestApp, config);
-  SwaggerModule.setup('api', nestApp, document);
+  SwaggerModule.setup('/.netlify/functions/server/api', nestApp, document);
 
   await nestApp.init();
   return app;
