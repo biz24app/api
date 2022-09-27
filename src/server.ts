@@ -4,6 +4,7 @@ import { ExpressAdapter } from '@nestjs/platform-express';
 import * as express from 'express';
 import * as serverless from 'serverless-http';
 import { AppModule } from './module';
+import helmet from 'helmet';
 
 const bootstrap = async (module: any) => {
   const app = express();
@@ -18,7 +19,7 @@ const bootstrap = async (module: any) => {
   );
   nestApp.use(express.json({ limit: '50mb' }));
   nestApp.use(express.urlencoded({ limit: '50mb', extended: true }));
-
+  nestApp.use(helmet());
   await nestApp.init();
   return app;
 };
