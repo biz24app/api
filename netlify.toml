@@ -5,8 +5,8 @@
   command = "npm run build"
   functions = "dist"
 
-[functions]
-  directory = "my_functions/"
+#[functions]
+#  directory = "my_functions/"
   
 [[redirects]]
   from = "/"
