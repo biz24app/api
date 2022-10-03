@@ -1,5 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { url } from 'inspector';
 import { UsersService } from 'src/users/users.service';
 import { jwtConstants } from './constants';
 
@@ -38,7 +39,7 @@ export class AuthService {
         secret: jwtConstants.secret,
         expiresIn: jwtConstants.expiresIn
       }),
-      url: "url"
+      url: user.url
     };
   }
 }
