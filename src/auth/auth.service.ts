@@ -30,15 +30,14 @@ export class AuthService {
     }
   }
 
-async signUp(userDto: CreateUserDto){
-  try{
+  async signUp(userDto: CreateUserDto) {
     userDto.url = `https://${userDto.phone}.biz24.app`;
-  const user =  this.usersService.create(userDto);
-  return user;
-  } catch(e){
-    return {error:`${userDto.userName} already exists ${e}`};
+    return this.usersService.create(userDto).then(res => {
+      return res;
+    }).catch(error => {
+      return { error: `${error}` };;
+    });
   }
-}
 
   async login(username: string, pass: string) {
     const user = await this.usersService.findUser(username, pass);
