@@ -33,12 +33,13 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException();
     }
-    const payload  = { username: user.userName, sub: user.id };
+    const payload  = { firstName: user.firstName, lastName: user.lastName, userName: user.userName, sub: user.id };
     return {
       access_token: this.jwtService.sign(payload,{
         secret: jwtConstants.secret,
         expiresIn: jwtConstants.expiresIn
       }),
+      expiresIn: jwtConstants.expiresIn,
       url: user.url
     };
   }
