@@ -43,7 +43,8 @@ export class UsersService {
     return this.usersRepository.findOne({
       where: {
         userName: username,
-        password: password
+        password: password,
+        isActive:true,
       },
     });
   }
