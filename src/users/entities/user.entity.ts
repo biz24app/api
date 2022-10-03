@@ -17,6 +17,12 @@ export class User {
   @Column()
   password: string;
 
+  @Column()
+  phone: string;
+
+  @Column()
+  url: string;
+
   @Column({default:"now()" })
   createdOn: string;
 
