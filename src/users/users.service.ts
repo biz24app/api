@@ -11,17 +11,14 @@ export class UsersService {
     @InjectRepository(User) private usersRepository: Repository<User>,
   ) { }
 
-  create(createUserDto: CreateUserDto): User {
-
-    const isUser = this.usersRepository.findOne({
-      where: {
-        userName: createUserDto.userName,
-      },
-    });
-    if(isUser) throw new Error("Duplicate Email");
-    const user = this.usersRepository.create(createUserDto);
-    this.usersRepository.save(createUserDto);
-    return user;
+  create(userDto: CreateUserDto): User {
+    try {
+      const user = this.usersRepository.create(userDto);
+      this.usersRepository.save(userDto);
+      return user;
+    } catch (e) {
+      throw new Error("Duplicate Email");
+    }
   }
 
   findAll(): Promise<User[]> {

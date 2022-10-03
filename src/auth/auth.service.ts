@@ -36,7 +36,7 @@ async signUp(userDto: CreateUserDto){
   const user =  this.usersService.create(userDto);
   return user;
   } catch(e){
-    return {error:`${userDto.userName} already exists`};
+    return {error:`${userDto.userName} already exists ${e}`};
   }
 }
 
