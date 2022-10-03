@@ -12,8 +12,7 @@ export class User {
   @Column()
   lastName: string;
 
-  @Index()
-  @Column()
+  @Column({ unique: true })
   userName: string;
 
   @Column()
@@ -25,10 +24,10 @@ export class User {
   @Column()
   url: string;
 
-  @Column({default:new Date() })
+  @Column({ type: 'datetime',default: () => 'NOW()' })
   createdOn: string;
 
-  @Column({default:new Date() })
+  @Column({ type: 'datetime',default: () => 'NOW()' })
   updatedOn: string;
 
   @Column({ default: true })

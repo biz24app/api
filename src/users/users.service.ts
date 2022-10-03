@@ -9,12 +9,19 @@ import { Repository } from 'typeorm';
 export class UsersService {
   constructor(
     @InjectRepository(User) private usersRepository: Repository<User>,
-  ) {}
+  ) { }
 
   create(createUserDto: CreateUserDto): User {
+
+    const isUser = this.usersRepository.findOne({
+      where: {
+        userName: createUserDto.userName,
+      },
+    });
+    if(isUser) throw new Error("Duplicate Email");
     const user = this.usersRepository.create(createUserDto);
-        this.usersRepository.save(createUserDto);
-        return user;
+    this.usersRepository.save(createUserDto);
+    return user;
   }
 
   findAll(): Promise<User[]> {
@@ -29,20 +36,22 @@ export class UsersService {
     });
   }
 
-  findUser(username: string,password: string): Promise<User> {
+  findUser(username: string, password: string): Promise<User> {
     return this.usersRepository.findOne({
       where: {
         userName: username,
-        password:password
+        password: password
       },
     });
   }
 
   update(id: number, data: Partial<UpdateUserDto>) {
     this.usersRepository.update({ id }, data);
-    return this.usersRepository.findOne({ where: {
-      id: id,
-    }, });
+    return this.usersRepository.findOne({
+      where: {
+        id: id,
+      },
+    });
   }
 
   remove(id: number): string {

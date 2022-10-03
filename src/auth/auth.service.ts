@@ -1,5 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { Http2ServerResponse } from 'http2';
 import { url } from 'inspector';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UsersService } from 'src/users/users.service';
@@ -29,9 +30,14 @@ export class AuthService {
     }
   }
 
-async signUp(createUserDto: CreateUserDto){
-  createUserDto.url = `${createUserDto.phone}.biz24.app`;
-  return this.usersService.create(createUserDto);
+async signUp(userDto: CreateUserDto){
+  try{
+    userDto.url = `${userDto.phone}.biz24.app`;
+  const user =  this.usersService.create(userDto);
+  return user;
+  } catch(e){
+    return {error:`${userDto.userName} already exists`};
+  }
 }
 
   async login(username: string, pass: string) {
