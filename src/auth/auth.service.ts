@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { url } from 'inspector';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UsersService } from 'src/users/users.service';
 import { jwtConstants } from './constants';
 
@@ -27,6 +28,11 @@ export class AuthService {
       throw new UnauthorizedException(e);
     }
   }
+
+async signUp(createUserDto: CreateUserDto){
+  createUserDto.url = `${createUserDto.phone}.biz24.app`;
+  return this.usersService.create(createUserDto);
+}
 
   async login(username: string, pass: string) {
     const user = await this.usersService.findUser(username, pass);

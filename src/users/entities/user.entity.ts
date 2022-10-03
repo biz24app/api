@@ -1,7 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, Index } from 'typeorm';
 
 @Entity()
 export class User {
+
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -11,6 +12,7 @@ export class User {
   @Column()
   lastName: string;
 
+  @Index()
   @Column()
   userName: string;
 
@@ -23,10 +25,10 @@ export class User {
   @Column()
   url: string;
 
-  @Column({default:"now()" })
+  @Column({default:new Date() })
   createdOn: string;
 
-  @Column({default:"now()" })
+  @Column({default:new Date() })
   updatedOn: string;
 
   @Column({ default: true })

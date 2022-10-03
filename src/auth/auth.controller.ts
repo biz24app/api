@@ -9,8 +9,7 @@ import { LocalAuthGuard } from "./local-auth.guard";
 @Controller('v1/auth')
 export class AuthController {
   constructor(
-    private readonly authService: AuthService,
-    private usersService: UsersService,
+    private readonly authService: AuthService
     ) {}
 
   @Get()
@@ -27,8 +26,7 @@ export class AuthController {
     createUserDto.password=req.body.password;
     createUserDto.userName=req.body.email;
     createUserDto.phone=req.body.phone;
-    createUserDto.url = `${req.body.phone}.biz24.app`;
-    return this.usersService.create(createUserDto);
+    return this.authService.signUp(createUserDto);
   }
 
   @UseGuards(JwtAuthGuard)
