@@ -32,7 +32,7 @@ export class AuthService {
 
 async signUp(userDto: CreateUserDto){
   try{
-    userDto.url = `${userDto.phone}.biz24.app`;
+    userDto.url = `https://${userDto.phone}.biz24.app`;
   const user =  this.usersService.create(userDto);
   return user;
   } catch(e){
