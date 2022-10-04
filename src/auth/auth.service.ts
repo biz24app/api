@@ -54,4 +54,56 @@ export class AuthService {
       url: user.url
     };
   }
+
+  async sendOTP(username: string, phone: string){
+    const user = await this.usersService.findUserbyUserNameOrPhone(username, phone);
+    if (!user) {
+      throw new UnauthorizedException("Please enter correct information");
+    }
+
+    if(user.isActive==false) throw new UnauthorizedException("This user is disable. Please contact to administrator");
+
+    // OTP send to user email or phone
+
+    return {
+      message: "OTP send to user email or phone"
+    };
+  }
+
+  async verifyOTP(username: string, phone: string, otp: string){
+    const user = await this.usersService.findUserbyUserNameOrPhone(username, phone);
+    if (!user) {
+      throw new UnauthorizedException("Please enter correct information");
+    }
+
+    if(user.isActive==false) throw new UnauthorizedException("This user is disable. Please contact to administrator");
+
+    // verify OTP
+    let isOTP: boolean;
+
+    if(isOTP==false) throw new UnauthorizedException("OTP does not match please try again");
+
+    return {
+      message: "Now change your password"
+    };
+  }
+
+  async changepassword(username: string, phone: string, otp: string,password: string){
+    const user = await this.usersService.findUserbyUserNameOrPhone(username, phone);
+    if (!user) {
+      throw new UnauthorizedException("Please enter correct information");
+    }
+
+    if(user.isActive==false) throw new UnauthorizedException("This user is disable. Please contact to administrator");
+
+    // verify OTP
+    let isOTP: boolean;
+
+    if(isOTP==false) throw new UnauthorizedException("OTP does not match please try again");
+
+    user.password=password;
+    user.updatedOn = 'NOW()';
+    return await this.usersService.update(user.id, user);
+  }
+
 }

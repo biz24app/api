@@ -18,6 +18,24 @@ export class AuthController {
   }
 
   @UseGuards(LocalAuthGuard)
+  @Post('sendotp')
+  forgotpassword(@Request() req) {
+    return this.authService.sendOTP(req.body.userName,req.body.phone);
+  }
+
+  @UseGuards(LocalAuthGuard)
+  @Post('verifyotp')
+  forgotpasswordfinal(@Request() req) {
+    return this.authService.verifyOTP(req.body.userName,req.body.phone,req.body.otp);
+  }
+
+  @UseGuards(LocalAuthGuard)
+  @Post('changepassword')
+  changepassword(@Request() req) {
+    return this.authService.changepassword(req.body.userName,req.body.phone,req.body.otp,req.body.password);
+  }
+
+  @UseGuards(LocalAuthGuard)
   @Post('signup')
   create(@Request() req) {
     var createUserDto: CreateUserDto = new CreateUserDto();

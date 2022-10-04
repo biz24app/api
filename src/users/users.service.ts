@@ -39,12 +39,23 @@ export class UsersService {
     });
   }
 
+  findUserbyUserNameOrPhone(username: string, phone: string): Promise<User> {
+    return this.usersRepository.findOne({
+      where: [{
+        userName: username,
+      },
+      {
+        phone: phone,
+      }],
+    });
+  }
+
   findUser(username: string, password: string): Promise<User> {
     return this.usersRepository.findOne({
       where: {
         userName: username,
         password: password,
-        isActive:true,
+        isActive: true,
       },
     });
   }
