@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   async signUp(userDto: CreateUserDto) {
-    userDto.url = `https://${userDto.phone}.biz24.app`;
+    userDto.url = `https://user.biz24.app`;
     return this.usersService.create(userDto).then(res => {
       return res;
     }).catch(error => {
