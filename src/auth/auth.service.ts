@@ -70,7 +70,6 @@ export class AuthService {
     const otp = otpGenerator.generate(6, { digits: true, lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false });
     const otpobj= { otp: otp, startdate: dateTime,expiredate:expiredate };
     user.otp=  JSON.stringify(otpobj);
-    user.updatedOn = `${dateTime}`;
     await this.usersService.update(user.id, user);
 
     // OTP send to user email or phone
@@ -112,7 +111,6 @@ export class AuthService {
     if (dateTime> otpobj.expiredate) throw new UnauthorizedException("OTP has expired");
 
     user.password = password;
-    user.updatedOn = `${dateTime}`;;
     return await this.usersService.update(user.id, user);
   }
 

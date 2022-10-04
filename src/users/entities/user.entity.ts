@@ -33,7 +33,7 @@ export class User {
   @Column({ type: 'datetime',default: () => 'NOW()' })
   createdOn: string;
 
-  @Column({ type: 'datetime',default: () => 'NOW()' })
+  @Column({ type: 'datetime',default: () => 'CURRENT_TIMESTAMP' })
   updatedOn: string;
 
   @Column({ default: true })
