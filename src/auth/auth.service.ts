@@ -64,10 +64,11 @@ export class AuthService {
     if (user.isActive == false) throw new UnauthorizedException("This user is disable. Please contact to administrator");
 
     const otpGenerator = require('otp-generator')
-    var dateTime = new Date();
+    const dateTime = new Date();
+    const expiredate = new Date(dateTime.getTime() + 5*60000);
 
     const otp = otpGenerator.generate(6, { digits: true, lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false });
-    const otpobj= { otp: otp, startdate: dateTime,expiredate:dateTime };
+    const otpobj= { otp: otp, startdate: dateTime,expiredate:expiredate };
     user.otp=  JSON.stringify(otpobj);
     user.updatedOn = `${dateTime}`;
     await this.usersService.update(user.id, user);
@@ -86,11 +87,11 @@ export class AuthService {
     }
 
     if (user.isActive == false) throw new UnauthorizedException("This user is disable. Please contact to administrator");
-
+    var dateTime = new Date();
     // verify OTP
-    let isOTP: boolean;
-
-    if (isOTP == false) throw new UnauthorizedException("OTP does not match please try again");
+    const otpobj =  JSON.parse(user.otp);
+    if(otp!=otpobj.otp) throw new UnauthorizedException("OTP does not match please try again");
+    if (dateTime> otpobj.expiredate) throw new UnauthorizedException("OTP has expired");
 
     return {
       message: "Now change your password"
@@ -104,14 +105,14 @@ export class AuthService {
     }
 
     if (user.isActive == false) throw new UnauthorizedException("This user is disable. Please contact to administrator");
-
+    var dateTime = new Date();
     // verify OTP
-    let isOTP: boolean;
-
-    if (isOTP == false) throw new UnauthorizedException("OTP does not match please try again");
+    const otpobj =  JSON.parse(user.otp);
+    if(otp!=otpobj.otp) throw new UnauthorizedException("OTP does not match please try again");
+    if (dateTime> otpobj.expiredate) throw new UnauthorizedException("OTP has expired");
 
     user.password = password;
-    user.updatedOn = 'NOW()';
+    user.updatedOn = `${dateTime}`;;
     return await this.usersService.update(user.id, user);
   }
 
