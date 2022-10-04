@@ -75,7 +75,7 @@ export class AuthService {
     // OTP send to user email or phone
 
     return {
-      message: "OTP send to user email or phone", otp: otpobj
+      message: "OTP send to your email or phone", otp: otpobj
     };
   }
 
