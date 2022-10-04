@@ -24,6 +24,12 @@ export class User {
   @Column()
   url: string;
 
+  @Column()
+  email: string;
+
+  @Column()
+  otp: string;
+
   @Column({ type: 'datetime',default: () => 'NOW()' })
   createdOn: string;
 

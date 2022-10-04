@@ -20,30 +20,35 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('sendotp')
   forgotpassword(@Request() req) {
-    return this.authService.sendOTP(req.body.userName,req.body.phone);
+    const { email, phone } = req.body;
+    return this.authService.sendOTP(email,phone);
   }
 
   @UseGuards(LocalAuthGuard)
   @Post('verifyotp')
   forgotpasswordfinal(@Request() req) {
-    return this.authService.verifyOTP(req.body.userName,req.body.phone,req.body.otp);
+    const { email, phone, otp } = req.body;
+    return this.authService.verifyOTP(email,phone,otp);
   }
 
   @UseGuards(LocalAuthGuard)
   @Post('changepassword')
   changepassword(@Request() req) {
-    return this.authService.changepassword(req.body.userName,req.body.phone,req.body.otp,req.body.password);
+    const { email, phone, otp,password } = req.body;
+    return this.authService.changepassword(email,phone,otp,password);
   }
 
   @UseGuards(LocalAuthGuard)
   @Post('signup')
   create(@Request() req) {
+    const { firstName,lastName,email, phone,password } = req.body;
+
     var createUserDto: CreateUserDto = new CreateUserDto();
-    createUserDto.firstName=req.body.firstName;
-    createUserDto.lastName=req.body.lastName;
-    createUserDto.password=req.body.password;
-    createUserDto.userName=req.body.email;
-    createUserDto.phone=req.body.phone;
+    createUserDto.firstName=firstName;
+    createUserDto.lastName=lastName;
+    createUserDto.password=password;
+    createUserDto.userName=email;
+    createUserDto.phone=phone;
     return this.authService.signUp(createUserDto);
   }
 
@@ -61,6 +66,7 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(@Request() req) {
-    return this.authService.login(req.body.userName,req.body.password);
+    const { userName,password } = req.body;
+    return this.authService.login(userName,password);
   }
 }
