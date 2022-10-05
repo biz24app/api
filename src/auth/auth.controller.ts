@@ -56,7 +56,7 @@ export class AuthController {
   @Post('verifysignup')
   verifySignUp(@Request() req) {
     const { email, phone, otp } = req.body;
-    return this.authService.verifyOTP(email,phone,otp);
+    return this.authService.verifySignUp(email,phone,otp);
   }
 
   @UseGuards(JwtAuthGuard)
