@@ -55,7 +55,7 @@ export class AuthService {
     await this.usersService.update(user.id, user);
 
     return {
-      message: "your account has been activated successfully"
+      message: "Your account has been activated successfully"
     };
   }
 
@@ -64,6 +64,7 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException();
     }
+    if (user.isActive == false) throw new UnauthorizedException("This user is disable. Please contact to administrator");
     const payload = { firstName: user.firstName, lastName: user.lastName, userName: user.userName, sub: user.id };
     return {
       access_token: this.jwtService.sign(payload, {
