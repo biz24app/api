@@ -40,6 +40,25 @@ export class AuthService {
     });
   }
 
+  async verifySignUp(username: string, phone: string, otp: string) {
+    const user = await this.usersService.findUserbyUserNameOrPhone(username, phone);
+    if (!user) {
+      throw new UnauthorizedException("Please enter correct information");
+    }
+
+    var dateTime = new Date();
+    // verify OTP
+    const otpobj =  JSON.parse(user.otp);
+    if(otp!=otpobj.otp) throw new UnauthorizedException("OTP does not match please try again");
+    if (dateTime> otpobj.expiredate) throw new UnauthorizedException("OTP has expired");
+    user.isActive=true;
+    await this.usersService.update(user.id, user);
+
+    return {
+      message: "your account has been activated successfully"
+    };
+  }
+
   async login(username: string, pass: string) {
     const user = await this.usersService.findUser(username, pass);
     if (!user) {
@@ -61,8 +80,6 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException("Please enter correct information");
     }
-
-    if (user.isActive == false) throw new UnauthorizedException("This user is disable. Please contact to administrator");
 
     const otpGenerator = require('otp-generator')
     const dateTime = new Date();
