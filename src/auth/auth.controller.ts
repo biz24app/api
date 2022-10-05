@@ -49,7 +49,11 @@ export class AuthController {
     createUserDto.password=password;
     createUserDto.userName=email;
     createUserDto.phone=phone;
-    return this.authService.signUp(createUserDto);
+    return this.authService.signUp(createUserDto).then(res => {
+      return res 
+    }).catch(error => {
+      return { error: `${error}` };;
+    });
   }
 
   @UseGuards(LocalAuthGuard)

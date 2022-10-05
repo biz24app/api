@@ -34,7 +34,7 @@ export class AuthService {
     userDto.url = `https://user.biz24.app`;
     userDto.isActive = false;
     return this.usersService.create(userDto).then(res => {
-      return this.sendOTP(userDto.userName,userDto.phone);
+      return res;
     }).catch(error => {
       return { error: `${error}` };;
     });
