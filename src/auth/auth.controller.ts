@@ -52,6 +52,13 @@ export class AuthController {
     return this.authService.signUp(createUserDto);
   }
 
+  @UseGuards(LocalAuthGuard)
+  @Post('verifysignup')
+  verifySignUp(@Request() req) {
+    const { email, phone, otp } = req.body;
+    return this.authService.verifyOTP(email,phone,otp);
+  }
+
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req) {
