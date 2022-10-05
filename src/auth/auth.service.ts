@@ -32,8 +32,9 @@ export class AuthService {
 
   async signUp(userDto: CreateUserDto) {
     userDto.url = `https://user.biz24.app`;
+    userDto.isActive = false;
     return this.usersService.create(userDto).then(res => {
-      return res;
+      return this.sendOTP(userDto.userName,userDto.phone);
     }).catch(error => {
       return { error: `${error}` };;
     });

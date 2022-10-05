@@ -7,5 +7,6 @@ export class CreateUserDto {
     password: string;
     phone: string;
     url: string;
+    isActive: boolean;
   
 }
