@@ -43,20 +43,21 @@ export class AuthService {
   async verifySignUp(username: string, phone: string, otp: string) {
     const user = await this.usersService.findUserbyUserNameOrPhone(username, phone);
     if (!user) {
-      throw new UnauthorizedException("Please enter correct information");
+      throw new UnauthorizedException("Please enter correct information.");
     }
 
     var dateTime = new Date();
     // verify OTP
     const otpobj =  JSON.parse(user.otp);
-    if(otp!=otpobj.otp) throw new UnauthorizedException("OTP does not match please try again");
-    if (dateTime> otpobj.expiredate) throw new UnauthorizedException("OTP has expired");
+    if(otp!=otpobj.otp) throw new UnauthorizedException("OTP does not match please try again.");
+    if (dateTime> otpobj.expiredate) throw new UnauthorizedException("OTP has expired.");
     user.isActive=true;
-    await this.usersService.update(user.id, user);
-
-    return {
-      message: "Your account has been activated successfully."
-    };
+    
+    return this.usersService.update(user.id, user).then(res=>{
+      return {
+        message: "Your account has been activated successfully."
+      };
+    })
   }
 
   async login(username: string, pass: string) {
