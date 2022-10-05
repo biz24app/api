@@ -55,7 +55,6 @@ export class UsersService {
       where: {
         userName: username,
         password: password,
-        isActive: true,
       },
     });
   }
