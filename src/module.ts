@@ -6,6 +6,7 @@ import { AppService } from './service';
 import { UsersModule } from './users/users.module';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { SiteModule } from './website/site/site.module';
+import { WebsiteModule } from './website/website.module';
 
 @Module({
   imports: [
@@ -24,8 +25,8 @@ import { SiteModule } from './website/site/site.module';
       limit: 10,
     }), 
     UsersModule,
-    SiteModule,
     AuthModule,
+    WebsiteModule
   ],
   controllers: [AppController],
   providers: [AppService],
