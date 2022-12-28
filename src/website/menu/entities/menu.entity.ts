@@ -1,5 +1,6 @@
+import { MenuItem } from 'src/website/menu-item/entities/menu-item.entity';
 import { Site } from 'src/website/site/entities/site.entity';
-import { Entity, Column, PrimaryGeneratedColumn, Index, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, Index, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 
 @Entity()
 export class Menu {
@@ -10,13 +11,20 @@ export class Menu {
     name: string;
 
     @Column()
-    websiteId: string;
-
+    siteId: number;
+/*
     @ManyToOne(type => Site)
     @JoinColumn([
-    { name: "site_id", referencedColumnName: "id" }
+    { name: "siteId", referencedColumnName: "id" }
     ])
     site: Site;
+*/
+
+    @ManyToOne(() => Site, (site) => site.menus)
+    site: Site
+
+    @OneToMany(() => MenuItem, (menuItem) => menuItem.menu)
+    menuItems: MenuItem[]
 
     @Column({ type: 'datetime',default: () => 'NOW()' })
     createdOn: string;

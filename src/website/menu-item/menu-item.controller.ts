@@ -3,7 +3,7 @@ import { MenuItemService } from './menu-item.service';
 import { CreateMenuItemDto } from './dto/create-menu-item.dto';
 import { UpdateMenuItemDto } from './dto/update-menu-item.dto';
 
-@Controller('menu-item')
+@Controller('v1/menu-item')
 export class MenuItemController {
   constructor(private readonly menuItemService: MenuItemService) {}
 

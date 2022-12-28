@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, Index } from 'typeorm';
+import { Menu } from 'src/website/menu/entities/menu.entity';
+import { Entity, Column, PrimaryGeneratedColumn, Index, OneToMany } from 'typeorm';
 
 @Entity()
 export class Site {
@@ -22,6 +23,9 @@ export class Site {
 
     @Column()
     screenshots: string;
+
+    @OneToMany(() => Menu, (menu) => menu.site)
+    menus: Menu[]
 
     @Column({ type: 'datetime',default: () => 'NOW()' })
     createdOn: string;

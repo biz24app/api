@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { Site } from '../site/entities/site.entity';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import { Menu } from './entities/menu.entity';
@@ -10,12 +11,22 @@ export class MenuService {
 
   constructor(
     @InjectRepository(Menu) private menuRepository: Repository<Menu>,
+    @InjectRepository(Site) private siteRepository: Repository<Site>
   ) { }
 
-  create(createLayoutDto: CreateMenuDto) {
-    const site = this.menuRepository.create(createLayoutDto);
-    this.menuRepository.save(createLayoutDto);
-    return site;
+  create(createMenuDto: CreateMenuDto) {
+    return this.siteRepository.findOne({
+      where: {
+        id: createMenuDto.siteId,
+      },
+    }).then(res => {
+      if (res) {
+        const menu = this.menuRepository.create(createMenuDto);
+        menu.site = res;
+        return this.menuRepository.save(menu);
+      }
+      throw new Error("Invalid Site Id");
+    });
   }
 
   findAll(): Promise<Menu[]> {

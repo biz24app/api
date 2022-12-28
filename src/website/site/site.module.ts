@@ -13,6 +13,7 @@ import { jwtConstants } from 'src/auth/constants';
   JwtModule.register({
     secret: jwtConstants.secret,
     signOptions: { expiresIn: '60s' },
-  }),]
+  }),],
+  exports:[SiteService]
 })
 export class SiteModule {}

@@ -1,5 +1,5 @@
 export class CreateMenuDto {
     name: string;
-    websiteId: string;
+    siteId: number;
     isActive: boolean;
 }
