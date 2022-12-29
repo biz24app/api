@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, Index } from 'typeorm';
+import { PageSection } from 'src/website/page-section/entities/page-section.entity';
+import { Entity, Column, PrimaryGeneratedColumn, Index, OneToMany } from 'typeorm';
 
 @Entity()
 export class Section {
@@ -10,6 +11,9 @@ export class Section {
 
     @Column()
     json: string;
+
+    @OneToMany(() => PageSection, (pageSection) => pageSection.section)
+    pageSections: PageSection[]
 
     @Column({ type: 'datetime',default: () => 'NOW()' })
     createdOn: string;

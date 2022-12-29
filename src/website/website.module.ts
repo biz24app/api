@@ -6,6 +6,7 @@ import { MenuItemModule } from './menu-item/menu-item.module';
 import { CategoryModule } from './category/category.module';
 import { SectionModule } from './section/section.module';
 import { PageModule } from './page/page.module';
+import { PageSectionModule } from './page-section/page-section.module';
 
 @Module({
     imports:[
@@ -15,7 +16,8 @@ import { PageModule } from './page/page.module';
         MenuItemModule,
         CategoryModule,
         SectionModule,
-        PageModule
+        PageModule,
+        PageSectionModule
     ]
 })
 export class WebsiteModule {}
