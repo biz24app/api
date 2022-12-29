@@ -1,4 +1,5 @@
 import { Menu } from 'src/website/menu/entities/menu.entity';
+import { Page } from 'src/website/page/entities/page.entity';
 import { Entity, Column, PrimaryGeneratedColumn, Index, OneToMany } from 'typeorm';
 
 @Entity()
@@ -26,6 +27,9 @@ export class Site {
 
     @OneToMany(() => Menu, (menu) => menu.site)
     menus: Menu[]
+
+    @OneToMany(() => Page, (menu) => menu.site)
+    pages: Page[]
 
     @Column({ type: 'datetime',default: () => 'NOW()' })
     createdOn: string;
