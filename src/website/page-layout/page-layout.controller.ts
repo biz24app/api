@@ -3,7 +3,7 @@ import { PageLayoutService } from './page-layout.service';
 import { CreatePageLayoutDto } from './dto/create-page-layout.dto';
 import { UpdatePageLayoutDto } from './dto/update-page-layout.dto';
 
-@Controller('page-layout')
+@Controller('v1/page-layout')
 export class PageLayoutController {
   constructor(private readonly pageLayoutService: PageLayoutService) {}
 

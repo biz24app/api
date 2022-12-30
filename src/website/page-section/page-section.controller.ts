@@ -3,7 +3,7 @@ import { PageSectionService } from './page-section.service';
 import { CreatePageSectionDto } from './dto/create-page-section.dto';
 import { UpdatePageSectionDto } from './dto/update-page-section.dto';
 
-@Controller('page-section')
+@Controller('v1/page-section')
 export class PageSectionController {
   constructor(private readonly pageSectionService: PageSectionService) {}
 

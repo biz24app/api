@@ -8,9 +8,10 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 export class SiteController {
   constructor(private readonly siteService: SiteService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createSiteDto: CreateSiteDto) {
-    return this.siteService.create(createSiteDto,1);
+  create(@Request() req,@Body() createSiteDto: CreateSiteDto) {
+    return this.siteService.create(createSiteDto,req.user.sub);
   }
 
   @Get('all')
@@ -21,9 +22,7 @@ export class SiteController {
   @UseGuards(JwtAuthGuard)
   @Get()
   findUserWise(@Request() req) {
-    //return req.user;
-    console.log(req.user);
-    return this.siteService.findUserWise(1);
+    return this.siteService.findUserWise(req.user.sub);
   }
 
   @Get(':id')
@@ -31,9 +30,10 @@ export class SiteController {
     return this.siteService.findOne(+id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSiteDto: UpdateSiteDto) {
-    return this.siteService.update(+id, updateSiteDto,1);
+  update(@Request() req,@Param('id') id: string, @Body() updateSiteDto: UpdateSiteDto) {
+    return this.siteService.update(+id, updateSiteDto,req.user.sub);
   }
 
   @Delete(':id')

@@ -3,7 +3,7 @@ import { BlockService } from './block.service';
 import { CreateBlockDto } from './dto/create-block.dto';
 import { UpdateBlockDto } from './dto/update-block.dto';
 
-@Controller('block')
+@Controller('v1/block')
 export class BlockController {
   constructor(private readonly blockService: BlockService) {}
 

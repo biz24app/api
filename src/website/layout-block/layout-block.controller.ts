@@ -3,7 +3,7 @@ import { LayoutBlockService } from './layout-block.service';
 import { CreateLayoutBlockDto } from './dto/create-layout-block.dto';
 import { UpdateLayoutBlockDto } from './dto/update-layout-block.dto';
 
-@Controller('layout-block')
+@Controller('v1/layout-block')
 export class LayoutBlockController {
   constructor(private readonly layoutBlockService: LayoutBlockService) {}
 

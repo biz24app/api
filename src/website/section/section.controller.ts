@@ -3,7 +3,7 @@ import { SectionService } from './section.service';
 import { CreateSectionDto } from './dto/create-section.dto';
 import { UpdateSectionDto } from './dto/update-section.dto';
 
-@Controller('section')
+@Controller('v1/section')
 export class SectionController {
   constructor(private readonly sectionService: SectionService) {}
 

@@ -3,7 +3,7 @@ import { SiteLayoutService } from './site-layout.service';
 import { CreateSiteLayoutDto } from './dto/create-site-layout.dto';
 import { UpdateSiteLayoutDto } from './dto/update-site-layout.dto';
 
-@Controller('site-layout')
+@Controller('v1/site-layout')
 export class SiteLayoutController {
   constructor(private readonly siteLayoutService: SiteLayoutService) {}
 

@@ -3,7 +3,7 @@ import { PageService } from './page.service';
 import { CreatePageDto } from './dto/create-page.dto';
 import { UpdatePageDto } from './dto/update-page.dto';
 
-@Controller('page')
+@Controller('v1/page')
 export class PageController {
   constructor(private readonly pageService: PageService) {}
 
