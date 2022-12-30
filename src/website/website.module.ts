@@ -7,6 +7,8 @@ import { CategoryModule } from './category/category.module';
 import { SectionModule } from './section/section.module';
 import { PageModule } from './page/page.module';
 import { PageSectionModule } from './page-section/page-section.module';
+import { SiteLayoutModule } from './site-layout/site-layout.module';
+import { PageLayoutModule } from './page-layout/page-layout.module';
 
 @Module({
     imports:[
@@ -17,7 +19,9 @@ import { PageSectionModule } from './page-section/page-section.module';
         CategoryModule,
         SectionModule,
         PageModule,
-        PageSectionModule
+        PageSectionModule,
+        SiteLayoutModule,
+        PageLayoutModule
     ]
 })
 export class WebsiteModule {}

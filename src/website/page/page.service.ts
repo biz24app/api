@@ -12,9 +12,8 @@ export class PageService {
   ) { }
 
   create(createSiteDto: CreatePageDto) {
-    const site = this.pageRepository.create(createSiteDto);
-    this.pageRepository.save(createSiteDto);
-    return site;
+    const page = this.pageRepository.create(createSiteDto);
+    return this.pageRepository.save(page);
   }
 
   findAll(): Promise<Page[]> {

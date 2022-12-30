@@ -1,26 +1,45 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreatePageSectionDto } from './dto/create-page-section.dto';
 import { UpdatePageSectionDto } from './dto/update-page-section.dto';
+import { PageSection } from './entities/page-section.entity';
 
 @Injectable()
 export class PageSectionService {
+
+  constructor(
+    @InjectRepository(PageSection) private pageSectionRepository: Repository<PageSection>,
+  ) { }
+
   create(createPageSectionDto: CreatePageSectionDto) {
-    return 'This action adds a new pageSection';
+    const pageSection = this.pageSectionRepository.create(createPageSectionDto);
+    return this.pageSectionRepository.save(pageSection);
   }
 
-  findAll() {
-    return `This action returns all pageSection`;
+  findAll(): Promise<PageSection[]> {
+    return this.pageSectionRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} pageSection`;
+  findOne(id: number): Promise<PageSection> {
+    return this.pageSectionRepository.findOne({
+      where: {
+        id: id,
+      },
+    });
   }
 
-  update(id: number, updatePageSectionDto: UpdatePageSectionDto) {
-    return `This action updates a #${id} pageSection`;
+  update(id: number, data: Partial<UpdatePageSectionDto>) {
+    this.pageSectionRepository.update({ id }, data);
+    return this.pageSectionRepository.findOne({
+      where: {
+        id: id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} pageSection`;
+  remove(id: number): string {
+    this.pageSectionRepository.delete(id);
+    return 'success';
   }
 }

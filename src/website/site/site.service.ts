@@ -14,8 +14,7 @@ export class SiteService {
 
   create(createSiteDto: CreateSiteDto) {
     const site = this.siteRepository.create(createSiteDto);
-    this.siteRepository.save(createSiteDto);
-    return site;
+    return this.siteRepository.save(site);
   }
 
   findAll(): Promise<Site[]> {

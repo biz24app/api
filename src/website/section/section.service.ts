@@ -12,8 +12,8 @@ export class SectionService {
   ) { }
 
   create(createCategoryDto: CreateSectionDto) {
-    const site = this.sectionRepository.create(createCategoryDto);
-    return this.sectionRepository.save(site);
+    const section = this.sectionRepository.create(createCategoryDto);
+    return this.sectionRepository.save(section);
   }
 
   findAll(): Promise<Section[]> {

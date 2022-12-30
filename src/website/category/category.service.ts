@@ -13,8 +13,8 @@ export class CategoryService {
   ) { }
 
   create(createCategoryDto: CreateCategoryDto) {
-    const site = this.categoryRepository.create(createCategoryDto);
-    return this.categoryRepository.save(site);
+    const category = this.categoryRepository.create(createCategoryDto);
+    return this.categoryRepository.save(category);
   }
 
   findAll(): Promise<Category[]> {

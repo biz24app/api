@@ -13,9 +13,8 @@ export class LayoutService {
   ) { }
 
   create(createLayoutDto: CreateLayoutDto) {
-    const site = this.layoutRepository.create(createLayoutDto);
-    this.layoutRepository.save(createLayoutDto);
-    return site;
+    const layout = this.layoutRepository.create(createLayoutDto);
+    return this.layoutRepository.save(layout);
   }
 
   findAll(): Promise<Layout[]> {
