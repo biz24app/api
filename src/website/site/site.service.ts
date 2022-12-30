@@ -12,13 +12,22 @@ export class SiteService {
     @InjectRepository(Site) private siteRepository: Repository<Site>,
   ) { }
 
-  create(createSiteDto: CreateSiteDto) {
+  create(createSiteDto: CreateSiteDto,userId:number) {
     const site = this.siteRepository.create(createSiteDto);
+    site.createBy = userId;
     return this.siteRepository.save(site);
   }
 
   findAll(): Promise<Site[]> {
     return this.siteRepository.find();
+  }
+
+  findUserWise(userId: number): Promise<Site[]> {
+    return this.siteRepository.find({
+      where: {
+        createBy: userId,
+      },
+    });
   }
 
   findOne(id: number): Promise<Site> {
@@ -29,13 +38,22 @@ export class SiteService {
     });
   }
 
-  update(id: number, data: Partial<UpdateSiteDto>) {
-    this.siteRepository.update({ id }, data);
+  update(id: number, data: Partial<UpdateSiteDto>,userId: number) {
     return this.siteRepository.findOne({
       where: {
         id: id,
       },
-    });
+    }).then(res => {
+      if (res) {
+        res.name = data.name;
+        res.isActive = data.isActive;
+        res.categoryType = data.categoryType;
+        res.imageStorageLocaion = data.imageStorageLocaion;
+        res.longDescription = data.longDescription;
+        res.updateBy = userId;
+        return this.siteRepository.update({ id }, res);
+      }
+  });
   }
 
   remove(id: number): string {

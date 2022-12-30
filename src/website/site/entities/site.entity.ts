@@ -35,13 +35,18 @@ export class Site {
     @OneToMany(() => SiteLayout, (siteLayout) => siteLayout.site)
     siteLayout: SiteLayout[]
 
-
     @Column({ type: 'datetime',default: () => 'NOW()' })
     createdOn: string;
   
     @Column({ type: 'datetime',default: () => 'CURRENT_TIMESTAMP' })
     updatedOn: string;
   
+    @Column()
+    createBy: number;
+
+    @Column()
+    updateBy: number;
+    
     @Column({ default: true })
     isActive: boolean;
 }
