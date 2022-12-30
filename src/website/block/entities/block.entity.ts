@@ -1,24 +1,13 @@
 import { LayoutBlock } from 'src/website/layout-block/entities/layout-block.entity';
-import { PageLayout } from 'src/website/page-layout/entities/page-layout.entity';
-import { SiteLayout } from 'src/website/site-layout/entities/site-layout.entity';
 import { Entity, Column, PrimaryGeneratedColumn, Index, OneToMany } from 'typeorm';
 
 @Entity()
-export class Layout {
+export class Block {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
     name: string;
-
-    @OneToMany(() => SiteLayout, (siteLayout) => siteLayout.layout)
-    siteLayoutes: SiteLayout[]
-
-    @OneToMany(() => PageLayout, (pageLayout) => pageLayout.layout)
-    pageLayoutes: PageLayout[]
-
-    @OneToMany(() => LayoutBlock, (layoutBlock) => layoutBlock.layout)
-    layoutBlocks: LayoutBlock[]
 
     @Column({ type: 'datetime',default: () => 'NOW()' })
     createdOn: string;
@@ -28,4 +17,7 @@ export class Layout {
   
     @Column({ default: true })
     isActive: boolean;
+
+    @OneToMany(() => LayoutBlock, (layoutBlock) => layoutBlock.block)
+    layoutBlocks: LayoutBlock[]
 }

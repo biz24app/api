@@ -9,6 +9,8 @@ import { PageModule } from './page/page.module';
 import { PageSectionModule } from './page-section/page-section.module';
 import { SiteLayoutModule } from './site-layout/site-layout.module';
 import { PageLayoutModule } from './page-layout/page-layout.module';
+import { BlockModule } from './block/block.module';
+import { LayoutBlockModule } from './layout-block/layout-block.module';
 
 @Module({
     imports:[
@@ -21,7 +23,9 @@ import { PageLayoutModule } from './page-layout/page-layout.module';
         PageModule,
         PageSectionModule,
         SiteLayoutModule,
-        PageLayoutModule
+        PageLayoutModule,
+        BlockModule,
+        LayoutBlockModule
     ]
 })
 export class WebsiteModule {}
