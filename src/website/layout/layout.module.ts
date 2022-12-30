@@ -14,5 +14,6 @@ import { jwtConstants } from 'src/auth/constants';
     secret: jwtConstants.secret,
     signOptions: { expiresIn: '60s' },
   }),]
+  
 })
 export class LayoutModule {}
