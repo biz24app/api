@@ -14,12 +14,12 @@ import { Site } from '../site/entities/site.entity';
     TypeOrmModule.forFeature([Menu]),
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '70s' },
     }),
     TypeOrmModule.forFeature([Site]),
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '70s' },
     })
   ],
 })
